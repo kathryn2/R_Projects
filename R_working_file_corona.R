@@ -128,10 +128,12 @@ dd <- filter(glbl_dtaset, time == time(covid_data_ts)) %>%
   arrange(desc(cum_confirm)) 
 
 # prep data
-dd = dd[1:40, ]
+dd = dd[1:41, ]
 dd$country = factor(dd$country, levels=dd$country)
-cols <- rev(RColorBrewer::brewer.pal(10, "RdYlGn"))
-dd$angle = 1:40 * 360/40
+# color specturms from colorbrewer:
+# https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html
+cols <- rev(RColorBrewer::brewer.pal(10, "RdYlBu"))
+dd$angle = 1:41 * 360/41
 label_cut = 150
 i = dd$angle >= 180 & dd$cum_confirm > label_cut
 dd$angle[i] = dd$angle[i] + 180
@@ -167,6 +169,3 @@ spiral <- ggplot(dd, aes(country, cum_confirm, fill=cum_confirm)) +
   theme(legend.position="none") 
 
 ggplotify::as.ggplot(spiral, scale=1.2, vjust=-.1)
-
-
-
